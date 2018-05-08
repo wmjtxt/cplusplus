@@ -5,6 +5,8 @@
  /// @quote   :
  //
 
+#include <iostream>
+using namespace std;
 
 struct ListNode {
 	int val;
@@ -52,5 +54,6 @@ public:
 };
 
 int main(){
+	Solution s;
 	return 0;
 }
