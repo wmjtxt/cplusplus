@@ -27,8 +27,10 @@ public:
             }
             else{
                 if(str[i] == pattern[j] || pattern[j] == '.'){
+                    /*这里好像不用递归不行啊，一开始我是这样写的,看了大神的答案才知道考虑的不全。
                     i++;
-                    continue;
+                    continue;*/
+                    return match(str+i+1, pattern+j) || match(str+i+1,pattern+j+2) || match(str+i,pattern+j+2);
                 }
                 else
                     j+=2;
