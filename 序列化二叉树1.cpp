@@ -4,7 +4,7 @@
  /// @date    :2018-05-22 16:14:23(NewYork time)
  /// @quote   :
  ///
- 
+#include <string.h>
 #include <iostream>
 using namespace std;
 
@@ -21,24 +21,39 @@ struct TreeNode {
 class Solution {
 public:
     char* Serialize(TreeNode *root) {
-		char* res = new char[100];
-		res+=toor->val;
-		if(root->left != NULL) res+=Serialize(root->left);
-		if(root->right != NULL) res+=Serialize(root->right);
+		if(!root) return "#";
+		string value = to_string(root->val);
+		value.push_back(',');
+		char *left = Serialize(root->left);
+		char *right = Serialize(root->right);
+		char *res = new char[strlen(left)+strlen(right)+value.size()];
+		strcpy(res,value.c_str());
+		strcat(res,left);
+		strcat(res,right);
 		return res;
     }
     TreeNode* Deserialize(char *str) {
-		TreeNode* root = NULL;
-		root->val = str[0];
-		for(int i = 0; i < strlen(str); i++){
-			
+		return Deserialize2(str);
+	}
+
+	TreeNode* Deserialize2(char *&str){
+		if(*str=='#'){
+			str++;
+			return NULL;
 		}
+		int num = 0;
+		while(*str!=',')
+			num = num*10+(*(str++)-'0');
+		str++;
+		TreeNode *root = new TreeNode(num);
+		root->left = Deserialize2(str);
+		root->right = Deserialize2(str);
 		return root;
-    }
+	}
 };
 
 
 int main(){
-	
+	Solution test;
 	return 0;
 }
